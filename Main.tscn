@@ -1,8 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://bmhxiuthpaxr8"]
+[gd_scene load_steps=20 format=3 uid="uid://bmhxiuthpaxr8"]
 
 [ext_resource type="Script" uid="uid://dtit4chiy0my1" path="res://scripts/main.gd" id="1_5vvyt"]
 [ext_resource type="Texture2D" uid="uid://b7adre1eagyqk" path="res://assets/textures/background.png" id="1_elqb8"]
-[ext_resource type="PackedScene" uid="uid://c36i6wo6d6fru" path="res://scenes/Menu.tscn" id="2_c2ibq"]
 [ext_resource type="PackedScene" uid="uid://ckm8dlr2vs74n" path="res://scenes/Enemy.tscn" id="2_fos0i"]
 [ext_resource type="Texture2D" uid="uid://d4gvoxa6yut0" path="res://assets/textures/enemy.png" id="3_3dxm6"]
 [ext_resource type="Script" uid="uid://cgw5mfo43408u" path="res://scripts/enemy.gd" id="3_lgr22"]
@@ -37,8 +36,6 @@ shadow_size = 15
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_5vvyt")
-
-[node name="MenuRoot" parent="." instance=ExtResource("2_c2ibq")]
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(640.219, 360.00003)

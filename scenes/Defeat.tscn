@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://brag57jxr60tx"]
+
+[ext_resource type="Script" uid="uid://dwh0d6h1s8pia" path="res://scripts/defeat.gd" id="1_043hq"]
+[ext_resource type="Texture2D" uid="uid://b7adre1eagyqk" path="res://assets/textures/background.png" id="1_ije3m"]
+[ext_resource type="Texture2D" uid="uid://bfafj15p6pioy" path="res://assets/textures/repeat.png" id="2_043hq"]
+[ext_resource type="Texture2D" uid="uid://dfwxdgt5xh2jf" path="res://assets/textures/back.png" id="3_wtg6v"]
+[ext_resource type="Texture2D" uid="uid://bw42pk87f4jhm" path="res://assets/textures/you_lose.png" id="4_oh8ql"]
+
+[node name="Defeat" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_043hq")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+rotation = -1.5707964
+scale = Vector2(0.65814346, 0.66593504)
+texture = ExtResource("1_ije3m")
+
+[node name="RestartButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 793.00006
+offset_top = 395.00003
+offset_right = 1313.0
+offset_bottom = 915.0
+scale = Vector2(0.6085344, 0.62831473)
+icon = ExtResource("2_043hq")
+flat = true
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 172.0
+offset_top = 429.0
+offset_right = 692.0
+offset_bottom = 949.0
+scale = Vector2(0.5079511, 0.5079511)
+icon = ExtResource("3_wtg6v")
+flat = true
+
+[node name="YouLose" type="Sprite2D" parent="."]
+position = Vector2(643, 278)
+texture = ExtResource("4_oh8ql")
+
+[connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
