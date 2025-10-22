@@ -1,0 +1,166 @@
+[gd_scene load_steps=22 format=3 uid="uid://bmhxiuthpaxr8"]
+
+[ext_resource type="Script" uid="uid://dtit4chiy0my1" path="res://main.gd" id="1_5vvyt"]
+[ext_resource type="Texture2D" uid="uid://b7adre1eagyqk" path="res://assets/textures/background.png" id="1_elqb8"]
+[ext_resource type="PackedScene" uid="uid://c36i6wo6d6fru" path="res://scenes/Menu.tscn" id="2_c2ibq"]
+[ext_resource type="PackedScene" uid="uid://ckm8dlr2vs74n" path="res://scenes/Enemy.tscn" id="2_fos0i"]
+[ext_resource type="Texture2D" uid="uid://d4gvoxa6yut0" path="res://assets/textures/enemy.png" id="3_3dxm6"]
+[ext_resource type="Script" uid="uid://cgw5mfo43408u" path="res://scenes/enemy.gd" id="3_lgr22"]
+[ext_resource type="PackedScene" uid="uid://bt3eamdrc130c" path="res://scenes/Player.tscn" id="4_lgr22"]
+[ext_resource type="Script" uid="uid://bscyapwnbr81o" path="res://scenes/player.gd" id="5_3dxm6"]
+[ext_resource type="Texture2D" uid="uid://cnhmw05l65l63" path="res://assets/textures/player.png" id="5_trn2v"]
+[ext_resource type="PackedScene" uid="uid://bojt3weqrbgsh" path="res://scenes/Ball.tscn" id="7_lgr22"]
+[ext_resource type="Texture2D" uid="uid://da1ples6jhpa5" path="res://assets/textures/ball.png" id="9_03owx"]
+[ext_resource type="Script" uid="uid://prj3x8nhx612" path="res://scenes/ball.gd" id="9_wkp8b"]
+[ext_resource type="AudioStream" uid="uid://byvv7q404186w" path="res://assets/music/GameMusic.mp3" id="12_5vvyt"]
+[ext_resource type="AudioStream" uid="uid://b11oiur8iwwf5" path="res://assets/sounds/Звук одиночного удара в пинг понге от стола.mp3" id="12_c6i3y"]
+
+[sub_resource type="GDScript" id="GDScript_20pc6"]
+script/source = "extends Node2D
+
+var player_score = 0
+var enemy_score = 0
+@onready var score_label = $UI/ScoreLabel  
+@onready var ball = $Ball
+
+func _process(delta):
+	score_label.text = str(enemy_score) + \" : \" + str(player_score)
+
+func _on_ball_collide_with_wall(side):
+	if side == \"left\":
+		player_score += 1
+	elif side == \"right\":
+		enemy_score += 1
+	reset_ball()
+
+func reset_ball():
+	ball.position = Vector2(512, 300)
+	ball.randomize_direction()
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_5vvyt"]
+line_spacing = 10.0
+font_size = 60
+outline_size = 3
+shadow_size = 15
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_glv2v"]
+size = Vector2(1280, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uu6xs"]
+size = Vector2(720, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_03owx"]
+size = Vector2(100, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wkp8b"]
+size = Vector2(100, 10)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wkp8b"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_5vvyt")
+
+[node name="MenuRoot" parent="." instance=ExtResource("2_c2ibq")]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(640.219, 360.00003)
+rotation = 1.5707964
+scale = Vector2(0.66595745, 0.666582)
+texture = ExtResource("1_elqb8")
+
+[node name="Score" type="Node2D" parent="."]
+position = Vector2(640.219, 360.00003)
+rotation = 1.5707964
+scale = Vector2(0.66595745, 0.666582)
+script = SubResource("GDScript_20pc6")
+
+[node name="UI" type="CanvasLayer" parent="Score"]
+
+[node name="ScoreLabel" type="Label" parent="Score/UI"]
+offset_left = 457.0
+offset_top = 2.0
+offset_right = 825.0
+offset_bottom = 80.0
+size_flags_vertical = 1
+text = "0 : 0"
+label_settings = SubResource("LabelSettings_5vvyt")
+horizontal_alignment = 1
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="TopWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(640, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/TopWall"]
+shape = SubResource("RectangleShape2D_glv2v")
+debug_color = Color(0, 0, 0, 0.41960785)
+
+[node name="BottomWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(640, 721)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/BottomWall"]
+shape = SubResource("RectangleShape2D_glv2v")
+debug_color = Color(0, 0, 0, 0.41960785)
+
+[node name="LeftWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(8, 360)
+rotation = 1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
+shape = SubResource("RectangleShape2D_uu6xs")
+disabled = true
+one_way_collision_margin = 9.7
+debug_color = Color(0, 0, 0, 0.41960785)
+
+[node name="RightWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(1280, 360)
+rotation = 1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
+shape = SubResource("RectangleShape2D_uu6xs")
+debug_color = Color(0, 0, 0, 0.41960785)
+
+[node name="Enemy" parent="." instance=ExtResource("2_fos0i")]
+position = Vector2(1220, 360)
+script = ExtResource("3_lgr22")
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy"]
+position = Vector2(0, -3)
+texture = ExtResource("3_3dxm6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+position = Vector2(0, -3)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_03owx")
+debug_color = Color(0, 0, 0, 0.41960785)
+
+[node name="Player" parent="." instance=ExtResource("4_lgr22")]
+position = Vector2(60, 360)
+script = ExtResource("5_3dxm6")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture = ExtResource("5_trn2v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_wkp8b")
+debug_color = Color(0, 0, 0, 0.41960785)
+
+[node name="Ball" parent="." instance=ExtResource("7_lgr22")]
+position = Vector2(640, 350)
+script = ExtResource("9_wkp8b")
+
+[node name="Sprite2D" type="Sprite2D" parent="Ball"]
+texture = ExtResource("9_03owx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource("CircleShape2D_wkp8b")
+
+[node name="Hitsound" type="AudioStreamPlayer2D" parent="Ball"]
+stream = ExtResource("12_c6i3y")
+
+[node name="Background_music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_5vvyt")
+autoplay = true
+parameters/looping = true

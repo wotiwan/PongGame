@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://c36i6wo6d6fru"]
+
+[ext_resource type="Texture2D" uid="uid://b7adre1eagyqk" path="res://assets/textures/background.png" id="1_xdvgc"]
+
+[node name="MenuRoot" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+rotation = -1.5707964
+scale = Vector2(0.65814346, 0.66593504)
+texture = ExtResource("1_xdvgc")

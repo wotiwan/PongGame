@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b11oiur8iwwf5"
+path="res://.godot/imported/Звук одиночного удара в пинг понге от стола.mp3-b60268c2bc534e57ee1c065393a68c63.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/Звук одиночного удара в пинг понге от стола.mp3"
+dest_files=["res://.godot/imported/Звук одиночного удара в пинг понге от стола.mp3-b60268c2bc534e57ee1c065393a68c63.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
